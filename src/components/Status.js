@@ -11,7 +11,7 @@ const Status = ({ prefix, elements }) => {
 
     return (
         <Container className="container">
-        <h2>{prefix}</h2>
+        <Heading>{prefix}</Heading>
         <Droppable droppableId={`${prefix}`}>
             {(provided) => (
             <div {...provided.droppableProps} ref={provided.innerRef}>
@@ -31,6 +31,10 @@ const Status = ({ prefix, elements }) => {
 export default Status;
 
 const Container = styled.div`
-    height: 100vh;
     background: rgba(203, 213, 225, 0.3);
+`;
+
+const Heading = styled.h2`
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
 `;
