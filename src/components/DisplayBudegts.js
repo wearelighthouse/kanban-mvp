@@ -13,7 +13,7 @@ function DisplayBudgets({ item, index }) {
               {...provided.draggableProps}
               {...provided.dragHandleProps}
             >
-              <h3 className="card">{item.title}</h3>
+              <p className="card">{item.fields["Title"]}</p>
             </div>
           );
         }}

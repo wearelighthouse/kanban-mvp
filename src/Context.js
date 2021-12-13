@@ -1,6 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
-import budgetsArr from "./budgetsArr.json";
-
+import useFetchFromAirtable from "./useFetchFromAirtable";
 const Context = createContext();
 
 const removeFromList = (list, index) => {
@@ -10,57 +9,64 @@ const removeFromList = (list, index) => {
 };
 
 const addToList = (list, index, element) => {
-    let elementCopy = {...element};
-   
     const result = Array.from(list);
-    const mapResult = result.map(res => {
-        return element.status = res.status;
-    })
-
-    elementCopy.status = mapResult[0];
-
-    result.splice(index, 0, elementCopy);
+    result.splice(index, 0, element);
     return result;
 };
 
 const status = ["To Do", "In Progress", "In Review / Blocked", "Done"];
 
-const budgets = ["AST: HKJ: UX/UI", "BB: Visit: Complete Build", "BB: Visit: Complete UI"];
+let budgets = [];
 
 function ContextProvider({children}) {
-    const [allTasks, setAllTasks] = useState(budgetsArr);
-    const [budget, setBudgets] = useState(budgets[0]);
-    
-    const getItems = (prefix) => {
-    
-        let mapBudget = allTasks.filter(budget => {
-            if (prefix === budget.status) {
+    const {tasks, allBudgets, isLoading} = useFetchFromAirtable();
+    const [destintionStatus, setDestinationStatus] = useState('');
+
+    let mapTasks = tasks.map(task => task.fields["Budget"] && task.fields["Budget"][0]);
+
+    for (let task of mapTasks) {
+        allBudgets.map(budget => {
+            if (budget.id === task) {
+                budgets = [budget.fields["Name"]];
                 return budget
             }
         });
-        
-       return mapBudget;
+       
     }
 
+    let lenghtIsO = budgets.length ? budgets : '';
+    let findFirstIndex = lenghtIsO && lenghtIsO[0];
+
+    const [budget, setBudgets] = useState(findFirstIndex);
+
+    const getItems = (prefix) => {
+    
+        let mapBudget = tasks && tasks.filter(task => {
+            if (prefix === task.fields["Status"]) {
+                return task;
+            }
+        });
+       return mapBudget;
+    }
+    
     const generateLists = () => 
         status.reduce((acc, listKey) => ({ ...acc, [listKey]: getItems(listKey) }),
         {}
     );
-    
+
     const [elements, setElements] = useState(generateLists());
-    
+
     useEffect(() => {
         setElements(generateLists());
-        setAllTasks(budgetsArr);
-    }, []);
-
+    }, [tasks])
+    
     const onChange = e => {
         const value = e.target.value;
         setBudgets(value);
     }
     
     return (
-        <Context.Provider value={{ removeFromList, addToList, status, elements, setElements, onChange, budgets, budget }}>
+        <Context.Provider value={{ removeFromList, addToList, status, onChange, budgets, budget, elements, setElements, destintionStatus, setDestinationStatus, allBudgets, isLoading }}>
             {children} 
         </Context.Provider>
     )

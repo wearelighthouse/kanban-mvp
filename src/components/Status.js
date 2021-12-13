@@ -5,9 +5,21 @@ import { Context } from "../Context";
 import DisplayBudgets from "./DisplayBudegts";
 
 const Status = ({ prefix, elements }) => {
-    const {budget} = useContext(Context);
+    const {budget, allBudgets} = useContext(Context);
 
-    const filterTasksByBudget = el => el.budget.toLowerCase().includes(budget.toLowerCase());
+    const filterTasksByBudget = el => {
+
+        let budgetName;
+        let taskBudgetId = el.fields["Budget"] && el.fields["Budget"][0];
+        let filterBudget = allBudgets.filter(budget => taskBudgetId === budget.id);
+        filterBudget.map(name => {
+            return budgetName = name.fields["Name"];
+        });
+        if (budgetName !== undefined) {
+            return budgetName.toLowerCase().includes(budget.toLowerCase());
+        }
+        
+    };
 
     return (
         <Container className="container">
