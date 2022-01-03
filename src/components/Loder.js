@@ -18,17 +18,17 @@ const Wrapper = styled.div`
 const Ring = styled.div`
   display: inline-block;
   position: relative;
-  width: 80px;
-  height: 80px;
-  opacity: 0.15;
+  width: 50px;
+  height: 50px;
+  opacity: 0.5;
   & div {
     box-sizing: border-box;
     display: block;
     position: absolute;
-    width: 64px;
-    height: 64px;
+    width: 44px;
+    height: 44px;
     margin: 8px;
-    border: 8px solid #000000;
+    border: 4px solid #000000;
     border-radius: 50%;
     animation: ${ringAnimation} 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     border-color: #000000 transparent transparent

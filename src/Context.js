@@ -16,28 +16,31 @@ const addToList = (list, index, element) => {
 
 const status = ["To Do", "In Progress", "In Review / Blocked", "Done"];
 
-let budgets = [];
-
 function ContextProvider({children}) {
     const {tasks, allBudgets, isLoading} = useFetchFromAirtable();
     const [destintionStatus, setDestinationStatus] = useState('');
 
     let mapTasks = tasks.map(task => task.fields["Budget"] && task.fields["Budget"][0]);
 
+    let newBudget = [];
     for (let task of mapTasks) {
-        allBudgets.map(budget => {
+        let newBudgets = allBudgets.filter(budget => {
             if (budget.id === task) {
-                budgets = [budget.fields["Name"]];
-                return budget
+                return budget;
             }
         });
-       
+
+       newBudgets.map(budget => {
+            return newBudget.push(budget.fields["Name"]);
+        })
     }
+
+    let budgets = [...new Set(newBudget)]
 
     let lenghtIsO = budgets.length ? budgets : '';
     let findFirstIndex = lenghtIsO && lenghtIsO[0];
 
-    const [budget, setBudgets] = useState(findFirstIndex);
+    const [budget, setBudgets] = useState();
 
     const getItems = (prefix) => {
     
@@ -58,7 +61,8 @@ function ContextProvider({children}) {
 
     useEffect(() => {
         setElements(generateLists());
-    }, [tasks])
+        setBudgets(findFirstIndex);
+    }, [tasks, findFirstIndex]);
     
     const onChange = e => {
         const value = e.target.value;

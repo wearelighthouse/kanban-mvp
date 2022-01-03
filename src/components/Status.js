@@ -26,7 +26,7 @@ const Status = ({ prefix, elements }) => {
         <Heading>{prefix}</Heading>
         <Droppable droppableId={`${prefix}`}>
             {(provided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
+            <div className="drop-able" {...provided.droppableProps} ref={provided.innerRef}>
                 {elements.filter(el => filterTasksByBudget(el)).map((item, index) => (
                     <DisplayBudgets key={item.id} item={item} index={index} />
                 ))}
@@ -47,6 +47,15 @@ const Container = styled.div`
 `;
 
 const Heading = styled.h2`
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 27px;
+    color: #000000;
+    padding-top: 1rem;
+    margin: 0;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+    padding-bottom: 1rem;
 `;

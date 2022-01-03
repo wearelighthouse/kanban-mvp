@@ -62,7 +62,7 @@ function useFetchFromAirtable() {
     useEffect(() => {
         setTimeout(() => {
             fetchTasksFromAirtable();
-        }, 1000);
+        }, 500);
     }, [])
 
     return { tasks, allBudgets, isLoading, error };
