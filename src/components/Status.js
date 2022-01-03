@@ -8,7 +8,6 @@ const Status = ({ prefix, elements }) => {
     const {budget, allBudgets} = useContext(Context);
 
     const filterTasksByBudget = el => {
-
         let budgetName;
         let taskBudgetId = el.fields["Budget"] && el.fields["Budget"][0];
         let filterBudget = allBudgets.filter(budget => taskBudgetId === budget.id);
@@ -17,13 +16,12 @@ const Status = ({ prefix, elements }) => {
         });
         if (budgetName !== undefined) {
             return budgetName.toLowerCase().includes(budget.toLowerCase());
-        }
-        
+        } 
     };
 
     return (
-        <Container className="container">
-        <Heading>{prefix}</Heading>
+        <Container>
+        <Heading className="lg-font">{prefix}</Heading>
         <Droppable droppableId={`${prefix}`}>
             {(provided) => (
             <div className="drop-able" {...provided.droppableProps} ref={provided.innerRef}>
@@ -47,12 +45,6 @@ const Container = styled.div`
 `;
 
 const Heading = styled.h2`
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 800;
-    font-size: 18px;
-    line-height: 27px;
-    color: #000000;
     padding-top: 1rem;
     margin: 0;
     padding-left: 1.5rem;

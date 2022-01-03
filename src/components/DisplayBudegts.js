@@ -14,7 +14,7 @@ function DisplayBudgets({ item, index }) {
               {...provided.draggableProps}
               {...provided.dragHandleProps}
             >
-              <TaskTitle>{item.fields["Title"]}</TaskTitle>
+              <TaskTitle className="lg-font">{item.fields["Title"]}</TaskTitle>
             </TaskCard>
           );
         }}
@@ -36,11 +36,5 @@ const TaskCard = styled.div`
 `;
 
 const TaskTitle = styled.p`
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 800;
-  font-size: 18px;
-  line-height: 27px;
-  color: #000000;
   margin: 0;
 `;

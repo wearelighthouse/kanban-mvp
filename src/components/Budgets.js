@@ -33,19 +33,15 @@ function Budgets() {
     
         setElements(listCopy);
     }
-
-    console.log(elements);
   
     return ( 
-        <Container className="o-container">
-            <Header className="App-header">
-                <div className="form">
-                    <SelectValue value={budget} onChange={e => onChange(e)}>
-                        {budgets.map((budget, index) => {
-                            return <option key={index} value={budget}>{budget}</option>
-                        })}
-                    </SelectValue>
-                </div>
+        <Container>
+            <Header>
+                <SelectValue value={budget} onChange={e => onChange(e)}>
+                    {budgets.map((budget, index) => {
+                        return <option key={index} value={budget}>{budget}</option>
+                    })}
+                </SelectValue>
             </Header>
            <DragDropContext onDragEnd={onDragEnd}>
                <div className="drag-able">
@@ -83,8 +79,8 @@ const SelectValue = styled.select`
 
 const Container = styled.div`
     padding-top: 1rem;
-    max-width: 1000px;
-    margin-left: auto;
+    max-width: 1212px;
+    margin-left: 1rem;
     margin-right: auto;
     padding-bottom: 1rem;
 `; 
