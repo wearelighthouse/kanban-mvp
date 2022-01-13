@@ -2,7 +2,7 @@ import { Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
 
 
-function DisplayBudgets({ item, index }) {
+function DisplayTasks({ item, index }) {
     
     return ( 
       <Draggable draggableId={item.id.toString()} index={index}>
@@ -15,6 +15,7 @@ function DisplayBudgets({ item, index }) {
               {...provided.dragHandleProps}
             >
               <TaskTitle className="lg-font">{item.fields["Title"]}</TaskTitle>
+              <p>Status: {item.fields["Status"]}</p>
             </TaskCard>
           );
         }}
@@ -22,7 +23,7 @@ function DisplayBudgets({ item, index }) {
     );
 }
 
-export default DisplayBudgets;
+export default DisplayTasks;
 
 const TaskCard = styled.div`
   background-color: white;

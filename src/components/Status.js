@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
 import { Context } from "../Context";
-import DisplayBudgets from "./DisplayBudegts";
+import DisplayTasks from "./DisplayTasks";
 
 const Status = ({ prefix, elements }) => {
     const {budget, allBudgets} = useContext(Context);
@@ -26,7 +26,7 @@ const Status = ({ prefix, elements }) => {
             {(provided) => (
             <div className="drop-able" {...provided.droppableProps} ref={provided.innerRef}>
                 {elements.filter(el => filterTasksByBudget(el)).map((item, index) => (
-                    <DisplayBudgets key={item.id} item={item} index={index} />
+                    <DisplayTasks key={item.id} item={item} index={index} />
                 ))}
                 
                 {provided.placeholder}
