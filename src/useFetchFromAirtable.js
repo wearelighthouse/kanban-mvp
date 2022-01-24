@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-const API_KEY = 'keyKi02SLEWcaD9um'
-const AT_API_BASE = 'app20NrsCw1ekosq8'
+const API_KEY = process.env.REACT_APP_API_KEY;  
+const AT_API_BASE = process.env.REACT_APP_API_BASE;
 const AIRTABLE_API= 'https://api.airtable.com/v0/';
 const headers = {
     'Authorization': "Bearer " + API_KEY,
