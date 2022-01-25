@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useCallback } from "react";
 import useFetchFromAirtable from "./useFetchFromAirtable";
 const Context = createContext();
 
@@ -24,13 +24,9 @@ function ContextProvider({children}) {
 
     let newBudget = [];
     for (let task of mapTasks) {
-        let newBudgets = allBudgets.filter(budget => {
-            if (budget.id === task) {
-                return budget;
-            }
-        });
+        let newBudgets = allBudgets.filter(budget => budget.id === task);
 
-       newBudgets.map(budget => {
+        newBudgets.map(budget => {
             return newBudget.push(budget.fields["Name"]);
         })
     }
@@ -42,19 +38,12 @@ function ContextProvider({children}) {
 
     const [budget, setBudgets] = useState();
 
-    const getItems = (prefix) => {
+    const getItems = useCallback(
+        (prefix) => tasks && tasks.filter(task => prefix === task.fields["Status"]), [tasks]
+    );
     
-        let mapBudget = tasks && tasks.filter(task => {
-            if (prefix === task.fields["Status"]) {
-                return task;
-            }
-        });
-       return mapBudget;
-    }
-    
-    const generateLists = () => 
-        status.reduce((acc, listKey) => ({ ...acc, [listKey]: getItems(listKey) }),
-        {}
+    const generateLists = useCallback(
+        () => status.reduce((acc, listKey) => ({ ...acc, [listKey]: getItems(listKey) }),{}), [getItems]
     );
 
     const [elements, setElements] = useState(generateLists());
@@ -62,7 +51,7 @@ function ContextProvider({children}) {
     useEffect(() => {
         setElements(generateLists());
         setBudgets(findFirstIndex);
-    }, [tasks, findFirstIndex]);
+    }, [tasks, findFirstIndex, generateLists]);
     
     const onChange = e => {
         const value = e.target.value;
