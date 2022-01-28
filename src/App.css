@@ -24,3 +24,13 @@ select {
   background-position: 95% 50%;
   background-size: 1rem;
 }
+
+.error-message {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 24px;
+  line-height: 32px;
+  color: #000000;
+  text-align: center;
+}
