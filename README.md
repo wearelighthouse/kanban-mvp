@@ -18,7 +18,7 @@ A kanban boards which dispalys tasks within a budget.
 
 ![screenshot](./src/assets/kanban-mvp.png)
 
-### Build with
+## Build with
 
 - [React](https://reactjs.org/)
 - [Styled Components](https://styled-components.com/docs)
