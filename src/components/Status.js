@@ -28,7 +28,7 @@ const Status = ({ prefix, elements }) => {
       <Heading className="lg-font">{prefix}</Heading>
       <Droppable droppableId={`${prefix}`}>
         {(provided) => (
-          <div className="drop-able" {...provided.droppableProps} ref={provided.innerRef}>
+          <div className="droppable" {...provided.droppableProps} ref={provided.innerRef}>
             {elements.filter(el => filterTasksByBudget(el)).map((item, index) => (
               <DisplayTasks key={item.id} item={item} index={index} />
             ))}

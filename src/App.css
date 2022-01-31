@@ -7,18 +7,18 @@
   color: #000000;
 }
 
-.drag-able {
+.dragdrop {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-gap: 8px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 1rem;
   height: 100vh;
 }
 
-.drop-able div + div {
+.droppable div + div {
   margin-top: 0.5rem;
 }
 
-select {
+.budgets-dropdown {
   background-image: url('./assets/icon.svg');
   background-repeat: no-repeat;
   background-position: 95% 50%;

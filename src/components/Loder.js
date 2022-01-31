@@ -1,5 +1,20 @@
 import styled, { keyframes } from 'styled-components';
 
+const Loader = () => {
+  return (
+    <Wrapper>
+      <Ring>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </Ring>
+    </Wrapper>
+  );
+};
+
+export default Loader;
+
 const ringAnimation = keyframes`
 0% {
     transform: rotate(0deg);
@@ -47,18 +62,3 @@ const Ring = styled.div`
     }
   }
 `;
-
-const Loader = () => {
-  return (
-    <Wrapper>
-      <Ring>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </Ring>
-    </Wrapper>
-  );
-};
-
-export default Loader;

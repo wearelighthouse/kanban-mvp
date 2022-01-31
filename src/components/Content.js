@@ -37,14 +37,14 @@ function Budgets() {
   return (
     <Container>
       <Header>
-        <SelectValue value={budget} onChange={e => onChange(e)}>
+        <SelectValue className="budgets-dropdown" value={budget} onChange={e => onChange(e)}>
           {budgets.map((budget, index) => {
             return <option key={index} value={budget}>{budget}</option>
           })}
         </SelectValue>
       </Header>
       <DragDropContext onDragEnd={onDragEnd}>
-        <div className="drag-able">
+        <div className="dragdrop">
           {status.map((listKey) => (
             <Status
               elements={elements[listKey]}
