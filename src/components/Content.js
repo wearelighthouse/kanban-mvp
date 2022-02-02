@@ -5,7 +5,7 @@ import { DragDropContext } from "react-beautiful-dnd";
 import styled from "styled-components";
 
 function Budgets() {
-  let { removeFromList, addToList, status, onChange, budgets, budget, elements, setElements } = useContext(Context);
+  let { removeFromList, addToList, status, onChange, budgets, budget, elements, setElements, filterTasksByBudget, updateRecord } = useContext(Context);
 
   const onDragEnd = result => {
 
@@ -17,7 +17,6 @@ function Budgets() {
 
     let newList = listCopy[result.source.droppableId];
     let [removedElement, newSourceList] = removeFromList(newList, result.source.index);
-
     listCopy[result.source.droppableId] = newSourceList;
 
     let removedElementCopy = { ...removedElement };
@@ -31,6 +30,12 @@ function Budgets() {
       removedElementCopy
     );
 
+    let fields = {
+      'Status': `${result.destination.droppableId}`
+    };
+    
+    updateRecord(removedElementCopy.id, fields);
+    
     setElements(listCopy);
   }
 
@@ -47,7 +52,7 @@ function Budgets() {
         <div className="dragdrop">
           {status.map((listKey) => (
             <Status
-              elements={elements[listKey]}
+              elements={elements[listKey].filter(el => filterTasksByBudget(el))}
               key={listKey}
               prefix={listKey}
             />

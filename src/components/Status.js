@@ -5,31 +5,14 @@ import { Context } from "../Context";
 import DisplayTasks from "./DisplayTasks";
 
 const Status = ({ prefix, elements }) => {
-  const { budget, allBudgets } = useContext(Context);
-
-  const filterTasksByBudget = el => {
-
-    let budgetName;
-    let taskBudgetId = el.fields["Budget"] && el.fields["Budget"][0];
-    let filterBudget = allBudgets.filter(budget => taskBudgetId === budget.id);
-
-    filterBudget.map(name => {
-      return budgetName = name.fields["Name"];
-    });
-
-    if (budgetName !== undefined) {
-      return budgetName.toLowerCase().includes(budget.toLowerCase());
-    }
-
-  };
-
+  
   return (
     <Container>
       <Heading className="lg-font">{prefix}</Heading>
       <Droppable droppableId={`${prefix}`}>
         {(provided) => (
           <div className="droppable" {...provided.droppableProps} ref={provided.innerRef}>
-            {elements.filter(el => filterTasksByBudget(el)).map((item, index) => (
+            {elements.map((item, index) => (
               <DisplayTasks key={item.id} item={item} index={index} />
             ))}
             {provided.placeholder}

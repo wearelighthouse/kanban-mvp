@@ -2,6 +2,12 @@ import React, { createContext, useState, useEffect, useCallback } from "react";
 import useFetchFromAirtable from "./useFetchFromAirtable";
 const Context = createContext();
 
+const API_KEY = process.env.REACT_APP_API_KEY;  
+const AT_API_BASE = process.env.REACT_APP_API_BASE;
+const Airtable = require('airtable');
+const base = new Airtable({apiKey: API_KEY }).base(AT_API_BASE);
+const table = base('Tasks');
+
 const removeFromList = (list, index) => {
   const result = Array.from(list);
   const [removed] = result.splice(index, 1);
@@ -59,8 +65,43 @@ function ContextProvider({ children }) {
     setBudgets(value);
   }
 
+  const filterTasksByBudget = el => {
+
+    let budgetName;
+    let taskBudgetId = el.fields["Budget"] && el.fields["Budget"][0];
+    let filterBudget = allBudgets.filter(budget => taskBudgetId === budget.id);
+
+    filterBudget.map(name => {
+      return budgetName = name.fields["Name"];
+    });
+
+    if (budgetName !== undefined) {
+      return budgetName.toLowerCase().includes(budget.toLowerCase());
+    }
+
+  };
+
+  const updateRecord = async (id, fields) => {
+    await table.update(id, fields);
+  };
+
   return (
-    <Context.Provider value={{ removeFromList, addToList, status, onChange, budgets, budget, elements, setElements, destintionStatus, setDestinationStatus, allBudgets, isLoading }}>
+    <Context.Provider value={{ 
+      removeFromList, 
+      addToList, 
+      status, 
+      onChange, 
+      budgets, 
+      budget, 
+      elements, 
+      setElements, 
+      destintionStatus, 
+      setDestinationStatus, 
+      allBudgets, 
+      isLoading,
+      updateRecord,
+      filterTasksByBudget
+      }}>
       {children}
     </Context.Provider>
   )
