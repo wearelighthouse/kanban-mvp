@@ -1,7 +1,5 @@
-import { useContext } from "react";
 import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
-import { Context } from "../Context";
 import DisplayTasks from "./DisplayTasks";
 
 const Status = ({ prefix, elements }) => {
